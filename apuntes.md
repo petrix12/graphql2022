@@ -62,11 +62,77 @@ yeisy jimenez
 
 ## Sección 2: Primeros pasos con GraphQL
 ### 9. ¿Qué es GraphQL?
-6 min
++ **Contenido**: sobre GraphQL.
+
 ### 10. GraphQL VS REST - Teoría
-11 min
++ **Contenido**: acerca de API GraphQL vs. API REST.
+
 ### 11. GraphQL VS REST - Ejemplo Práctico con la API Swapi
-8 min
++ https://swapi.dev
++ https://graphql.org/swapi-graphql
++ https://pipedream.com/apps/swapi
++ https://swapi.apis.guru
+1. Obtener de **https://swapi.dev**: 
+    + Nombre de personaje.
+    + Fecha de nacimiento.
+    + Lugar de nacimiento.
+    + Películas en las que aparece.
+2. Construcción de la consulta anterior para el personaje 1 en API GraphQL:
+    ```
+    {
+        person(personID: 1) {
+            name
+            birthYear
+            homeworld {
+                name
+            },
+            filmConnection {
+                films {
+                    title
+                }
+            }
+        }
+    }
+    ```
+    + 
+    + https://swapi.apis.guru/?query=%7B%0A%20%20person(personID%3A%201)%20%7B%0A%20%20%20%20name%0A%20%20%20%20birthYear%0A%20%20%20%20homeworld%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%2C%0A%20%20%20%20filmConnection%20%7B%0A%20%20%20%20%20%20films%20%7B%0A%20%20%20%20%20%20%20%20title%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&operationName=null
+3. Respuesta de la consulta anterior:
+    ```json
+    {
+        "data": {
+            "person": {
+                "name": "Luke Skywalker",
+                "birthYear": "19BBY",
+                "homeworld": {
+                    "name": "Tatooine"
+                },
+                "filmConnection": {
+                    "films": [
+                        {
+                            "title": "A New Hope"
+                        },
+                        {
+                            "title": "The Empire Strikes Back"
+                        },
+                        {
+                            "title": "Return of the Jedi"
+                        },
+                        {
+                            "title": "Revenge of the Sith"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+    ```
+
+### Subiendo cambios GitHub:
++ $ git add .
++ $ git commit -m "Primeros pasos con GraphQL"
++ $ git push -u origin main
+
+
 ### 12. Introducción
 9 min
 ### 13. Tipos de Escalares - Scalar Types
