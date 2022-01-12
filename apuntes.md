@@ -14,29 +14,49 @@
     + $ git branch -M main
     + $ git remote add origin https://github.com/petrix12/graphql2022.git
     + $ git push -u origin main
+yeisy jimenez
 
 
 ## Sección 1: Introducción
 ### 1. Presentación del curso
-10 min
++ Contenido: presentación del curso.
+
 ### 2. Acerca de las siguientes clases
-1 min
++ Os escribo esta nota de cara a informaros que si tenéis experiencia con otros cursos de Udemy, no os va a hacer falta ver las siguientes clases hasta la clase 6: "Instalación - Typescript / Ts-Node / Nodemon de manera global"
++ Estos videos tienen el objetivo de explicar los aspectos que son básicos para trabajar en cualquier curso de Udemy, sobre todo pensado en nuevos usuarios a la plataforma.
++ Lo dicho, si tenéis experiencia en esta platforma, podéis pasarlos sin perder nada que os pueda resultar útil (aunque si los véis como repaso, tampoco creo que os perjudique) y si no la tenéis, os recomiendo que le dediquéis un instante a visualizarlos, para tener una idea más clara del funcionamiento y así con ello poder tener una experiencia más agradable mientras aprendéis!
+
 ### 3. ¿Cómo funciona un curso en Udemy?
-15 min
++ **Contenido**: sobre el funcionamiento de este curso en la plataforma de Udemy.
+
 ### 4. Acerca de las preguntas y respuestas
-1 min
++ Acerca de las preguntas y respuestas: Debido a los cambios en el funcionamiento de los cursos gratuitos, no podréis hacer preguntas en este curso. Siento las molestias.
+
 ### 5. ¿Cómo realizar reseñas?
-1 min
++ ¿Cómo realizar reseñas?
++ **Respuesta**: En este artículo, os dan las pautas para que realicéis las reseñas tanto en este curso u otros que curséis conmigo o con otro instructores.
++ Os recomiendo que cuando os pregunten de manera prematura (cuando lleváis jun 5%), seleccionéis para añadir la reseña al final del curso.
+
 ### 6. Instalación - Typescript / Ts-Node / Nodemon de manera global
-3 min
-7. IDE recomendado para desarrollar curso - Visual Studio
-2 min
++ https://github.com/graphql-course/informacion-util/blob/master/NPM_DEPENDENCIES.md
+1. Dependencias de NPM que se usará en común
+    + Typescript
+    + Nodemon       ($ npm install -g nodemon)
+    + Ts-Node       ($ npm install -g ts-node / $ npm install -g typescript)
+
+### 7. IDE recomendado para desarrollar curso - Visual Studio
++ https://github.com/graphql-course/informacion-util/blob/master/VSC_EXT.md
+1. Extensión recomendada de VS Code:
+    + **npm**
+        + Microsoft
+        + npm support for VS Code
+
 ### 8. Extensiones Visual Studio Code recomendadas
-1 min
++ https://github.com/graphql-course/informacion-util/blob/master/EXTENSIONS.md
 
 ### Subiendo cambios GitHub:
 + $ git add .
-+ $ git commit -m "API Auth Firebase - Rutas protegidas"
++ $ git commit -m "Introducción"
 + $ git push -u origin main
 
 
