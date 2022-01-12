@@ -133,30 +133,50 @@ yeisy jimenez
 + $ git push -u origin main
 
 
+## Sección 3: Conceptos básicos GraphQL - Type System. Construyendo schemas a través de tipos
 ### 12. Introducción
-9 min
++ https://www.apollographql.com/docs/apollo-server/schema/schema
+  
 ### 13. Tipos de Escalares - Scalar Types
-4 min
++ **Contenido**: sobre tipos de escaleres en GraphQL.
+
 ### 14. Tipos de Objecto - Object Types
-3 min
++ **Contenido**: sobre tipos de objetos en GraphQL.
+
 ### 15. Tipos de Enum - Enum Types
-2 min
++ **Contenido**: sobre tipos de enum en GraphQL.
+
 ### 16. Modificadores de tipo
-6 min
++ **Contenido**: sobre modificadores de tipo en GraphQL.
+
 ### 17. Interfaces
-2 min
++ **Contenido**: sobre las interfaces en GraphQL.
+
 ### 18. Root Types - Introducción
-3 min
++ **Contenido**: sobre Root Types en GraphQL.
+
 ### 19. Root Type - Query
-3 min
++ **Contenido**: sobre Root Type - Query en GraphQL.
+
 ### 20. Root Type - Mutation
-3 min
++ **Contenido**: sobre Root Type - Mutation en GraphQL.
+
 ### 21. Root Type - Subscription
-3 min
++ **Contenido**: sobre Root Type - Subscription en GraphQL.
+
 ### 22. Tipos de entrada - Input Type
-3 min
++ **Contenido**: sobre tipos de entradas en GraphQL.
+
 ### 23. Comentarios
-3 min
++ **Contenido**: sobre comentarios en GraphQL.
+
+### Subiendo cambios GitHub:
++ $ git add .
++ $ git commit -m "Conceptos básicos GraphQL - Type System. Construyendo schemas a través de tipos"
++ $ git push -u origin main
+
+
+## Sección 4: Trabajando en la Interfaz GraphQL Playground - Un GraphiQL mejorado
 ### 24. Introducción a la sección - ¿Qué vamos a aprender?
 2 min
 ### 25. Interfaz GrapiQL - Nociones básicas
