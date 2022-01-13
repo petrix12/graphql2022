@@ -178,36 +178,290 @@ yeisy jimenez
 
 ## Sección 4: Trabajando en la Interfaz GraphQL Playground - Un GraphiQL mejorado
 ### 24. Introducción a la sección - ¿Qué vamos a aprender?
-2 min
++ **Contenido**: introducción a la sección.
+
 ### 25. Interfaz GrapiQL - Nociones básicas
-4 min
++ https://swapi.apis.guru
+
 ### 26. Interfaz Apollo Server - Nociones básicas
-4 min
+1. Ir a https://f1-graphql.herokuapp.com
+2. Realizar consulta:
+    ```js
+    {
+        seasonsList {
+            year
+            url
+            urlMobile
+        }
+    }
+    ```
+
 ### 27. API que se usará para trabajar en esta sección
-1 min
++ API que se usará para trabajar en esta sección:
+    + https://breaking-bad-voting.herokuapp.com
+
 ### 28. Queries
-3 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta 1:
+        ```js
+        {
+            characters {
+                id
+            }
+        }
+        ```
+    + Consulta 2:
+        ```js
+        {
+            characters {
+                id
+                name
+                actor
+            }
+        }
+        ```
+
 ### 29. Queries con argumentos
-3 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta 1:
+        ```js
+        {
+            character(id: "1") {
+                id
+                name
+                total_episodes
+            }
+        }
+        ```
+    + Consulta 2:
+        ```js
+        {
+            character(id: "1") {
+                id
+                photo
+                name
+                total_episodes
+            }
+            characters {
+                id
+                name
+                description
+                total_episodes
+            }
+        }
+        ```
+
 ### 30. Merge de la misma instancia de objeto
-3 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta:
+        ```js
+        {
+            character(id: "1") {
+                id
+                name
+            }
+            character(id: "1") {
+                description
+            }
+            character(id: "1") {
+                description
+                photo
+            }
+        }
+        ```
+
 ### 31. Alias
-3 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta:
+        ```js
+        {
+            walter: character(id: "1") {
+                id
+                name
+                description
+                photo
+            }
+            jesse: character(id: "2") {
+                id
+                name
+                description
+                photo
+            }
+        }
+        ```
+
 ### 32. Fragments
-4 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta:
+        ```js
+        {
+            walter: character(id: "1") {
+                ...personajesFragment
+            }
+            jesse: character(id: "2") {
+                ...personajesFragment
+            }
+        }
+
+        fragment personajesFragment on Character {
+            id
+            name
+            actor
+            description
+            photo
+        }
+        ```
+
 ### 33. Query Variables
-5 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta:
+        ```js
+        query listaPersonajes($walter: ID!, $jesse: ID!, $hank: ID!) {
+            walter: character(id: $walter) {
+                ...personajesFragment
+            }
+            jesse: character(id: $jesse) {
+                ...personajesFragment
+            }
+            hank: character(id: $hank) {
+                ...personajesFragment
+            }
+        }
+
+        fragment personajesFragment on Character {
+            id
+            name
+            photo
+            url
+        }
+        ```
+    + Query variables:
+        ```json
+        {
+            "walter": 1,
+            "jesse": 2,
+            "hank": 4
+        }
+        ```
+
 ### 34. Mutations
-4 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta:
+        ```js
+        mutation addVote($character: ID!) {
+            addVote(character: $character) {
+                id
+                character
+                createdAt
+            }
+        }
+        ```
+    + Query variables:
+        ```json
+        {
+            "character": "2"
+        }
+        ```
+
 ### 35. Directivas Include / Skip
-5 min
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta:
+        ```js
+        query getCharacters($mostrarActor: Boolean!, $esconderNombre: Boolean!) {
+            characters {
+                id
+                name @skip(if: $esconderNombre)
+                actor @include(if: $mostrarActor)
+            }
+        }
+        ```
+    + Query variables:
+        ```json
+        {
+            "mostrarActor": true,
+            "esconderNombre": false
+        }
+        ```
+
 ### 36. Sobre el siguiente video - Nota informativa
-1 min
++ Sobre el siguiente video - Nota informativa:
+    + Debido a que hay un bug en la librería del apollo server express cuando usamos el Playground en producción, no podréis probar lo del siguiente video. Simplemente visualizarlo y pasar a la siguiente sección.
+    + Tranquilos/as, que vamos a trabajar con esto más adelante, cuando hagamos la API de Breaking Bad para crear el sistema de votaciones. Ahí iremos haciendo paso a paso, probándolo en local ejecutando desde el playground y luego cuando lo pasemos a producción podremos comprobar que funciona correctamente haciendo las peticiones desde la app Angular.
+
 ### 37. Subscriptions
-4 min
-Cuestionario 1: Repaso "Trabajando en la interfaz de GraphQL"
+1. Realizar consultas de prueba en https://breaking-bad-voting.herokuapp.com:
+    + Consulta:
+        ```js
+        subscription {
+            newVote {
+                id
+                name
+                votes
+            }
+        }
+        ```
+
+### Cuestionario 1: Repaso "Trabajando en la interfaz de GraphQL"
+1. ¿Qué operaciones se pueden ejecutar en el servidor de GraphQL?
+2. ¿Qué mejoras e implementaciones principales tiene el playground de Apollo Server que no tiene interfaz GraphiQL desarrollada por Facebook?
+3. ¿Cual es la respuesta de esta consulta? En el caso de que nos de error, ¿Cómo lo podemos solucionar?
+    ```js
+    {
+        character(id: "1") {
+            name
+            total_episodes
+        }
+        character(id: "2") {
+            name        
+            total_episodes
+        }
+    }
+    ```
+4. ¿Cual sería la respuesta de esta query?
+    ```js
+    {
+        character(id: "1") {
+            name
+            total_episodes
+        }
+        character(id: "1") {
+            total_episodes
+        }
+    }
+    ```
+5. Teniendo la siguiente consulta
+    ```js
+    query listaPersonajes($skip: Boolean!) {
+        characters {
+            id
+            name
+            actor @skip(if: $skip)
+            description @skip(if: $skip)
+            total_episodes @skip(if: $skip)
+            photo @skip(if: $skip)
+            url @skip(if: $skip)
+            votes
+        }
+    }
+    ```
+    ¿Qué se obtendría si la Query variables fuese { "skip": true } ?
+
+### Subiendo cambios GitHub:
++ $ git add .
++ $ git commit -m "Trabajando en la Interfaz GraphQL Playground - Un GraphiQL mejorado"
++ $ git push -u origin main
+
+
+## (Opcional) Prácticas recomendadas para repasar el trabajo con el Playground
 ### 38. Objetivo de esta sección
-1 min
+
+
+
+
+
+    ```
+    ```
+
 ### 39. Directorio con diferentes APIs públicas en GraphQL
 1 min
 ### 40. APIs creadas por mi
