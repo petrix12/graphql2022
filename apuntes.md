@@ -452,24 +452,37 @@ yeisy jimenez
 + $ git push -u origin main
 
 
-## (Opcional) Prácticas recomendadas para repasar el trabajo con el Playground
+## Sección 5: (Opcional) Prácticas recomendadas para repasar el trabajo con el Playground
 ### 38. Objetivo de esta sección
-
-
-
-
-
-    ```
-    ```
++ Esta sección se ha creado especificamente para que los/as alumnos/as del curso puedan practicar lo aprendido en el apartado del playground con Apollo Server con diferentes APIs que podremos encontrar en la red. Así conseguiremos coger soltura con la herramienta de pruebas de Apollo Server y a su vez, veremos como están construidas las APIs internamente, pudiendo acceder a los repositorios de manera individual.
++ Podéis aportar APIs que encontréis y no veáis en la lista que recomiendo.
++ Las APIs las recomiendo en base al directorio de APIs públicas que encontraremos en la siguiente clase.
 
 ### 39. Directorio con diferentes APIs públicas en GraphQL
-1 min
++ https://github.com/APIs-guru/graphql-apis
+
 ### 40. APIs creadas por mi
-1 min
++ https://github.com/graphql-course/informacion-util/blob/master/MY-PUBLIC-APIS.md
+
 ### 41. Listado de Prácticas
-1 min
++ https://github.com/graphql-course/informacion-util/blob/master/PRACTICAS-PLAYGROUND.md
+
+### Subiendo cambios GitHub:
++ $ git add .
++ $ git commit -m "Prácticas recomendadas para repasar el trabajo con el Playground"
++ $ git push -u origin main
+
+
+## Sección 6: Introducciónal desarrollo de una API GraphQL - Saludos
 ### 42. Introducción - ¿Qué es lo que vamos a aprender en esta sección?
-2 min
+
+
+
+
+
+    ```
+    ```
+
 ### 43. Crear / Configurar los ficheros necesarios
 6 min
 ### 44. Instalación de las dependencias necesarias
