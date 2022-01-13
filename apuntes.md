@@ -475,30 +475,321 @@ yeisy jimenez
 
 ## Sección 6: Introducciónal desarrollo de una API GraphQL - Saludos
 ### 42. Introducción - ¿Qué es lo que vamos a aprender en esta sección?
-
-
-
-
-
-    ```
-    ```
++ **Contenido**: sobre lo que haremos en esta sección.
 
 ### 43. Crear / Configurar los ficheros necesarios
-6 min
+1. Crear carpeta **01hola** para un nuevo proyecto de GraphQL.
+2. Ubicados en la raíz del proyecto **01hola** ejecutar:
+    + $ npm init
+        + package name: (01hola): hola-mundo
+        + version: (1.0.0): [ENTER]
+        + description: Hola Mundo en GraphQL.
+        + entry point: (index.js): build/server.js
+        + test command: [ENTER]
+        + git repository: [ENTER]
+        + keywords: graphql, graphql curso, hola mundo
+        + author: Pedro Bazó <bazo.pedro@gmail.com> (https://cvpetrix.herokuapp.com)
+        + license: (ISC): MIT
+    + Is this OK? (yes): y
+3. Modificar 01hola\package.json:
+    ```json
+    {
+        "name": "hola-mundo",
+        "version": "1.0.0",
+        "description": "Hola Mundo en GraphQL.",
+        "main": "build/server.js",
+        "scripts": {
+            "test": "echo \"Error: no test specified\" && exit 1"
+        },
+        "keywords": [
+            "graphql",
+            "graphql-curso",
+            "hola-mundo"
+        ],
+        "author": "Pedro Bazó <bazo.pedro@gmail.com> (https://cvpetrix.herokuapp.com)",
+        "license": "MIT"
+    }
+    ```
+4. Ejecutar:
+    + $ npm install typescript
+    + $ npx tsc --init --rootDir src --outDir build --lib dom,es6 --module commonjs --removeComments --target es6
+
 ### 44. Instalación de las dependencias necesarias
-3 min
+1. Lista de dependencias requeridas del proyecto **01hola**:
+    + express 
+    + express-graphql 
+    + graphql 
+    + graphql-import-node 
+    + compression 
+    + cors 
+    + typescript 
+    + graphql-tools 
+    + graphql-playground-middleware-express 
+2. Instalar dependencias de producción:
+    + $ npm install express express-graphql graphql ncp http graphql-import-node compression cors
+    + $ npm install typescript graphql-tools graphql-playground-middleware-express
+3. Instalar dependencias de desarrollo:
+    + $ npm install @types/compression @types/express @types/cors @types/express-graphql -D
+    + $ npm install @types/node @types/graphql -D
+
 ### 45. Hola mundo y configuración de los scripts del package.json. Ejecutar servidor
-5 min
+1. Modificar **01hola\package.json**:
+    ```json
+    {
+        ≡
+        "scripts": {
+            "test": "node build/server.js",
+            "build": "tsc -p . && ncp src/schema build/schema",
+            "start:dev": "npm run build:dev",
+            "build:dev": "nodemon \"src/server.ts\" --exec \"ts-node\" src/server.ts -e ts,graphql"
+        },
+        ≡
+    }
+    ```
+2. Crear **01hola\src\server.ts**:
+    ```ts
+    console.log('HS++ en GraphQL!!!')
+    ```
+3. Ejecutar proyecto en modo de desarrollo:
+    + $ npm run start:dev
+
 ### 46. Server - Inicializar el servidor express con los ajustes por defecto sin graphql
-4 min
+1. Configurar servidor **01hola\src\server.ts**:
+    ```ts
+    import express from 'express';
+    import compression from 'compression';
+    import cors from 'cors';
+
+    const app = express();
+
+    app.use(cors());
+
+    app.use(compression());
+
+    app.use('/', (re, res) => {
+        res.send('HS++ GraphQL')
+    });
+
+    const PORT = 5300;
+
+    app.listen(
+        { port: PORT },
+        () => console.log(`Hola Mundo API GraphQL http://localhost:${PORT}`)
+    );
+    ```
+
 ### 47. Server - Pasar de Node Express a GraphQL y probarlo en el navegador
-11 min
+1. Ejecutar:
+    + $ npm install graphql-tools@4.x
+    + $ npm install @graphql-tools/utils
+2. Modificar archivo de configuración **01hola\src\server.ts**:
+    ```ts
+    import express from 'express';
+    import compression from 'compression';
+    import cors from 'cors';
+    import { IResolvers, makeExecutableSchema } from 'graphql-tools';
+    import { graphqlHTTP } from 'express-graphql';
+
+    const app = express();
+
+    app.use(cors());
+
+    app.use(compression());
+
+    const typeDefs = `
+        type Query {
+            hola: String!
+            holaConNombre(nombre: String!): String!
+            holaAlCursoGraphQL: String!
+        }
+    `;
+
+    const resolvers: IResolvers = {
+        Query : {
+            hola(): string{
+                return 'HSoluciones++';
+            },
+            holaConNombre(__: void, { nombre }): string {
+                return `Hola Loco ${nombre}`;
+            },
+            holaAlCursoGraphQL(): string {
+                return 'Hola Mundo en el curso de GraphQL';
+            }
+        }
+    }
+
+    const schema = makeExecutableSchema({
+        typeDefs,
+        resolvers,
+    });
+
+    app.use('/', graphqlHTTP({
+        schema,
+        graphiql: true
+    }));
+
+    const PORT = 5300;
+
+    app.listen(
+        { port: PORT },
+        () => console.log(`Hola Mundo API GraphQL http://localhost:${PORT}/graphql`)
+    );
+    ```
+3. Ir a la interface de GraphiQL en http://localhost:5300/graphql.
+4. Probar la interface con el siguinete código:
+    ```js
+    {
+        hola
+        petrix: holaConNombre(nombre: "Petrix")
+        graphql: holaConNombre(nombre: "HS++ GraphQL")
+        holaAlCursoGraphQL
+    }
+    ```
+
 ### 48. Server - Refactorizar código de API GraphQL
-8 min
+1. Crear **01hola\src\schema\index.ts**:
+    ```ts
+    import { GraphQLSchema } from "graphql";
+    import 'graphql-import-node';
+    import typeDefs from './schema.graphql';
+    import resolvers from '../resolvers/resolversMaps';
+    import { makeExecutableSchema } from 'graphql-tools';
+
+    const schema: GraphQLSchema = makeExecutableSchema({
+        typeDefs,
+        resolvers
+    });
+
+    export default schema;
+    ```
+2. Crear **01hola\src\schema\schema.graphql**:
+    ```graphql
+    type Query {
+        hola: String!
+        holaConNombre(nombre: String!): String!
+        holaAlCursoGraphQL: String!
+    }
+    ```
+3. Crear **01hola\src\resolvers\resolversMaps.ts**:
+    ```ts
+    import { IResolvers } from 'graphql-tools';
+    import query from './query'
+
+    const resolvers: IResolvers = {
+        ...query
+    }
+
+    export default resolvers;
+    ```
+4. Crear **01hola\src\resolvers\query.ts**:
+    ```ts
+    import { IResolvers } from 'graphql-tools';
+
+    const query: IResolvers = {
+        Query : {
+            hola(): string{
+                return 'HSoluciones++';
+            },
+            holaConNombre(__: void, { nombre }): string {
+                return `Hola Loco ${nombre}`;
+            },
+            holaAlCursoGraphQL(): string {
+                return 'Hola Mundo en el curso de GraphQL';
+            }
+        }
+    }
+
+    export default query;
+    ```
+5. Modificar 01hola\src\server.ts:
+    ```ts
+    import express from 'express';
+    import compression from 'compression';
+    import cors from 'cors';
+    import { graphqlHTTP } from 'express-graphql';
+    import schema from './schema';
+
+    const app = express();
+
+    /* app.use('*', cors()); */
+    app.use(cors());
+
+    app.use(compression());
+
+    app.use('/', graphqlHTTP({
+        schema,
+        graphiql: true
+    }));
+
+    const PORT = 5300;
+
+    app.listen(
+        { port: PORT },
+        () => console.log(`Hola Mundo API GraphQL http://localhost:${PORT}/graphql`)
+    );
+    ```
+
 ### 49. Configurar la API de GraphQL con Apollo Server Express y probar como en GraphiQL
-5 min
+1. Para la ejecución del servidor del proyecto **01hola**.
+2. Ejecutar en la raíz del proyecto **01hola**:
+    + $ npm unistall express-graphql
+    + $ npm install apollo-server-express
+3. Modificar **01hola\src\server.ts**:
+    ```ts
+    import express from 'express';
+    import compression from 'compression';
+    import cors from 'cors';
+    import schema from './schema';
+    import { ApolloServer } from 'apollo-server-express';
+    import { createServer } from 'http';
+
+    const app = express();
+
+    app.use(cors());
+
+    app.use(compression());
+
+    const server = new ApolloServer({
+        schema,
+        introspection: true
+    });
+
+    server.applyMiddleware({ app });
+
+    const PORT = 5300;
+
+    const httpServer = createServer(app);
+
+    httpServer.listen(
+        { port: PORT },
+        () => console.log(`Hola Mundo API GraphQL http://localhost:${PORT}/graphql`)
+    );
+    ```
+4. Ejecutar servidor:
+    + $ npm run build:dev
+
+### Subiendo cambios GitHub:
++ $ git add .
++ $ git commit -m "Introducciónal desarrollo de una API GraphQL - Saludos"
++ $ git push -u origin main
+
+
+## Sección 7: Academia Online con GraphQL
 ### 50. Introducción - ¿Qué es lo que vamos a aprender?
-2 min
+
+
+
+
+
+
+
+    ≡
+    ```
+    ```
+
+
+
+
 ### 51. Creación / Configurar los ficheros necesarios
 5 min
 ### 52. Instalaciones de las dependencias necesarias
